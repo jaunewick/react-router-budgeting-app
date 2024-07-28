@@ -32,7 +32,6 @@ export const Nav = ({ userName }) => {
                             <span>Delete User</span>
                             <TrashIcon width={20}/>
                         </button>
-
                     </Form>
                 )
             }
