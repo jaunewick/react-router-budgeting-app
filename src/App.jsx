@@ -14,7 +14,7 @@ import { Main, mainLoader } from "./layouts/Main";
 import { logoutAction } from "./actions/logout";
 
 // Routes
-import { Dashboard, dashBoardLoader } from "./pages/Dashboard";
+import { Dashboard, dashboardAction, dashBoardLoader } from "./pages/Dashboard";
 import { Error } from "./pages/Error";
 
 const router = createBrowserRouter([
@@ -28,6 +28,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Dashboard />,
         loader: dashBoardLoader,
+        action: dashboardAction,
         errorElement: <Error />
       },
       {
