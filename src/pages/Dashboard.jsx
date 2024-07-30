@@ -5,11 +5,12 @@ import { useLoaderData } from "react-router-dom"
 import { toast } from "react-toastify"
 
 // helper functions
-import { createBudget, fetchData } from "../helpers"
+import { createBudget, createExpense, fetchData } from "../helpers"
 
 // components
 import { Intro } from "../components/Intro"
 import { AddBudgetForm } from "../components/AddBudgetForm"
+import { AddExpenseForm } from "../components/AddExpenseForm"
 
 // loader
 export function dashBoardLoader() {
@@ -43,26 +44,52 @@ export async function dashboardAction({ request }) {
             throw new Error("There was a problem creating your budget.")
         }
     }
+
+    if (_action === "createExpense") {
+        try {
+            createExpense({
+                name: values.newExpense,
+                values: values.newExpenseAmount,
+                budgetId: values.newExpenseBudget
+            })
+            return toast.success(`Expense ${values.newExpense} created!`)
+        } catch (error) {
+            throw new Error("There was a problem creating your expense.")
+        }
+    }
+
 }
 
 export const Dashboard = () => {
     const { userName, budgets } = useLoaderData()
     console.log(userName);
     return (
-        <div>
+        <>
             {userName ? (
                 <div className="dashboard">
                     <h1>Welcome back, <span className="accent">{userName}</span></h1>
                     <div className="grid-sm">
-                        {/* {budgets ? () : ()} */}
-                        <div className="grid-lg">
-                            <div className="flex-lg">
-                                <AddBudgetForm />
-                            </div>
-                        </div>
+                        {
+                            budgets && budgets.length > 0
+                                ? (
+                                    <div className="grid-lg">
+                                        <div className="flex-lg">
+                                            <AddBudgetForm />
+                                            <AddExpenseForm budgets={budgets} />
+                                        </div>
+                                    </div>
+                                )
+                                : (
+                                    <div className="grid-sm">
+                                        <p>Personal budgeting is the secret to financial freedom.</p>
+                                        <p>Create a budget to get started!</p>
+                                        <AddBudgetForm />
+                                    </div>
+                                )
+                        }
                     </div>
                 </div>
             ) : <Intro />}
-        </div>
+        </>
     )
 }

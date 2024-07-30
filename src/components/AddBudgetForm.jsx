@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react"
 
 // rrd imports
-import { Form, useFetcher } from "react-router-dom"
+import { useFetcher } from "react-router-dom"
 
 // libraries
 import { CurrencyDollarIcon } from "@heroicons/react/24/solid"
@@ -16,7 +16,9 @@ export const AddBudgetForm = () => {
 
     useEffect(() => {
         if (!isSubmitting) {
+            // clear form
             formRef.current.reset()
+            // reset focus
             focusRef.current.focus()
         }
     }, [isSubmitting])
