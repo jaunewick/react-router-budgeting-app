@@ -74,3 +74,7 @@ export const formatCurrency = (amt) => {
         currency: "CAD"
     })
 }
+
+// Format date
+export const formatDateToLocaleString = (epoch) =>
+    new Date(epoch).toLocaleDateString();
