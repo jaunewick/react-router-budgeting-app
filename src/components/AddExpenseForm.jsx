@@ -34,7 +34,7 @@ export const AddExpenseForm = ({ budgets }) => {
             </h2>
             <fetcher.Form
                 method="post"
-                className="gris-sm"
+                className="grid-sm"
                 ref={formRef}
             >
                 <div className="expense-inputs">
@@ -55,9 +55,9 @@ export const AddExpenseForm = ({ budgets }) => {
                             type="number"
                             name="newExpenseAmount"
                             id="newExpenseAmount"
-                            step="0.01"
+                            step={0.01}
                             inputMode="decimal"
-                            placeholder="e.g., 3.50"
+                            placeholder="e.g., CA$3.50"
                             required
                         />
                     </div>
@@ -68,25 +68,25 @@ export const AddExpenseForm = ({ budgets }) => {
                         {
                             budgets
                                 .sort((a, b) => a.createdAt - b.createdAt)
-                                .map((budget) => (
-                                    <option key={budget.id} value={budget.id}>
-                                        {budget.name}
-                                    </option>
-                                ))
+                                .map((budget) => {
+                                    return (
+                                        <option key={budget.id} value={budget.id}>
+                                            {budget.name}
+                                        </option>
+                                    )
+                                })
                         }
                     </select>
                 </div>
                 <input type="hidden" name="_action" value="createExpense" />
                 <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
                     {
-                        isSubmitting
-                            ? <span>Submitting...</span>
-                            : (
-                                <>
-                                    <span>Add Expense</span>
-                                    <PlusCircleIcon width={20} />
-                                </>
-                            )
+                        isSubmitting ? <span>Submitting…</span> : (
+                            <>
+                                <span>Add Expense</span>
+                                <PlusCircleIcon width={20} />
+                            </>
+                        )
                     }
                 </button>
             </fetcher.Form>

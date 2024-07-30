@@ -11,6 +11,7 @@ import { createBudget, createExpense, fetchData } from "../helpers"
 import { Intro } from "../components/Intro"
 import { AddBudgetForm } from "../components/AddBudgetForm"
 import { AddExpenseForm } from "../components/AddExpenseForm"
+import { BudgetItem } from "../components/BudgetItem"
 
 // loader
 export function dashBoardLoader() {
@@ -49,7 +50,7 @@ export async function dashboardAction({ request }) {
         try {
             createExpense({
                 name: values.newExpense,
-                values: values.newExpenseAmount,
+                amount: values.newExpenseAmount,
                 budgetId: values.newExpenseBudget
             })
             return toast.success(`Expense ${values.newExpense} created!`)
@@ -76,6 +77,14 @@ export const Dashboard = () => {
                                         <div className="flex-lg">
                                             <AddBudgetForm />
                                             <AddExpenseForm budgets={budgets} />
+                                        </div>
+                                        <h2>Existing Budgets</h2>
+                                        <div className="budgets">
+                                            {
+                                                budgets.map((budget)=>(
+                                                    <BudgetItem key={budgets.id} budget={budget}/>
+                                                ))
+                                            }
                                         </div>
                                     </div>
                                 )
