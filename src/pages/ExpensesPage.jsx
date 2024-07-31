@@ -1,18 +1,35 @@
 // rrdm imports
 import { useLoaderData } from "react-router-dom"
 
-// helpers import
-import { Table } from "../components/Table"
+//libraries import
+import { toast } from "react-toastify"
 
 // components import
-import { fetchData } from "../helpers"
+import { Table } from "../components/Table"
+
+// helpers import
+import { deleteItem, fetchData } from "../helpers"
 
 // loader
-export function expensesPageLoader() {
-    const userName = fetchData('userName')
-    const budgets = fetchData('budgets')
+export async function expensesPageLoader() {
     const expenses = fetchData('expenses')
-    return { userName, budgets, expenses }
+    return { expenses }
+}
+
+export async function expensesAction( {request}) {
+    const data = await request.formData()
+    const {_action, ...values} = Object.fromEntries(data)
+    if (_action === "deleteExpense") {
+        try {
+            deleteItem({
+                key: "expenses",
+                id: values.expenseId
+            })
+            return toast.success("Expense deleted!")
+        } catch (error) {
+            throw new Error("There was a problem deleting your expense.")
+        }
+    }
 }
 
 const ExpensesPage = () => {

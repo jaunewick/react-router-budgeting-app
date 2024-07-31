@@ -16,7 +16,7 @@ import { logoutAction } from "./actions/logout";
 // Routes
 import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
 import { Error } from "./pages/Error";
-import ExpensesPage, { expensesPageLoader } from "./pages/ExpensesPage";
+import ExpensesPage, { expensesAction, expensesPageLoader } from "./pages/ExpensesPage";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,8 @@ const router = createBrowserRouter([
       {
         path: "expense",
         element: <ExpensesPage />,
-        loader: expensesPageLoader 
+        loader: expensesPageLoader, 
+        action: expensesAction
       },
       {
         path: "logout",
