@@ -7,7 +7,7 @@ import { TrashIcon } from "@heroicons/react/24/solid"
 // helpers import
 import { formatCurrency, formatDateToLocaleString, getAllMatchingItems } from "../helpers"
 
-export const ExpenseItem = ({ expense }) => {
+export const ExpenseItem = ({ expense, showBudget = true }) => {
     const { name, amount, createdAt, budgetId, id } = expense
     const budget = getAllMatchingItems({
         category: 'budgets',
@@ -24,16 +24,18 @@ export const ExpenseItem = ({ expense }) => {
             <td>{name}</td>
             <td>{formatCurrency(amount)}</td>
             <td>{formatDateToLocaleString(createdAt)}</td>
-            <td>
-                <Link
-                    to={`/budget/${budget.id}`}
-                    style={{
-                        '--accent': budget.color
-                    }}
-                >
-                    {budget.name}
-                </Link>
-            </td>
+            {
+                showBudget && <td>
+                    <Link
+                        to={`/budget/${budget.id}`}
+                        style={{
+                            '--accent': budget.color
+                        }}
+                    >
+                        {budget.name}
+                    </Link>
+                </td>
+            }
             <td>
                 <fetcher.Form
                     method="delete"
@@ -45,7 +47,7 @@ export const ExpenseItem = ({ expense }) => {
                         className="btn btn--warning"
                         aria-label={`delete ${name} expense`}
                     >
-                        <TrashIcon width={20}/>
+                        <TrashIcon width={20} />
                     </button>
                 </fetcher.Form>
             </td>
