@@ -50,7 +50,7 @@ export const AddExpenseForm = ({ budgets }) => {
                         />
                     </div>
                     <div className="grid-xs">
-                        <label htmlFor="newExpenseAmount">Amount</label>
+                        <label htmlFor="newExpenseAmount¡™£™">Amount</label>
                         <input
                             type="number"
                             name="newExpenseAmount"

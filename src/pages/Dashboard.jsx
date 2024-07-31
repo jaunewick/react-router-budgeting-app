@@ -1,5 +1,5 @@
 // rrd imports
-import { useLoaderData } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 
 // libraries
 import { toast } from "react-toastify"
@@ -15,7 +15,7 @@ import { BudgetItem } from "../components/BudgetItem"
 import { Table } from "../components/Table"
 
 // loader
-export function dashBoardLoader() {
+export function dashboardLoader() {
     const userName = fetchData('userName')
     const budgets = fetchData('budgets')
     const expenses = fetchData('expenses')
@@ -63,7 +63,7 @@ export async function dashboardAction({ request }) {
 
 }
 
-export const Dashboard = () => {
+const Dashboard = () => {
     const { userName, budgets, expenses } = useLoaderData()
     console.log(userName);
     return (
@@ -92,7 +92,18 @@ export const Dashboard = () => {
                                             expenses && expenses.length > 0 && (
                                                 <div className="grid-md">
                                                     <h2>Recent Expenses</h2>
-                                                    <Table expenses={expenses.sort((a, b) => b.createdAt - a.createdAt)} />
+                                                    <Table expenses={expenses
+                                                        .sort((a, b) => b.createdAt - a.createdAt)
+                                                        .slice(0, 8)}
+                                                    />
+                                                    {expenses.length > 8 && (
+                                                        <Link
+                                                            to="expense"
+                                                            className="btn btn--dark"
+                                                        >
+                                                            View all expenses
+                                                        </Link>
+                                                    )}
                                                 </div>
                                             )
                                         }
@@ -112,3 +123,6 @@ export const Dashboard = () => {
         </>
     )
 }
+
+export default Dashboard;
+

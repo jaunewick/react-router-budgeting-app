@@ -14,8 +14,9 @@ import { Main, mainLoader } from "./layouts/Main";
 import { logoutAction } from "./actions/logout";
 
 // Routes
-import { Dashboard, dashboardAction, dashBoardLoader } from "./pages/Dashboard";
+import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
 import { Error } from "./pages/Error";
+import ExpensesPage, { expensesPageLoader } from "./pages/ExpensesPage";
 
 const router = createBrowserRouter([
   {
@@ -27,9 +28,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
-        loader: dashBoardLoader,
+        loader: dashboardLoader,
         action: dashboardAction,
         errorElement: <Error />
+      },
+      {
+        path: "expense",
+        element: <ExpensesPage />,
+        loader: expensesPageLoader 
       },
       {
         path: "logout",

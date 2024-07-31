@@ -16,7 +16,7 @@ export const BudgetItem = ({ budget }) => {
                 <h3>{name}</h3>
                 <p>{formatCurrency(amount)} Budgeted</p>
             </div>
-            <progress max={amount} value={spent}>
+            <progress max={amount} value={spent}>¡™
                 {formatPercentage(spent / amount)}
             </progress>
             <div className="progress-text">
