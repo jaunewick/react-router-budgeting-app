@@ -25,7 +25,7 @@ export const Error = () => {
                     className="btn btn--dark"
                 >
                     <HomeIcon width={20} />
-                    <span>Go hone</span>
+                    <span>Go home</span>
                 </Link>
             </div>
         </div>
